@@ -78,7 +78,17 @@
     </property>
     <addaction name="actionMedian"/>
    </widget>
+   <widget class="QMenu" name="menuOperasi_titik">
+    <property name="title">
+     <string>Operasi titik</string>
+    </property>
+    <addaction name="actionBrightness"/>
+    <addaction name="actionContrast"/>
+    <addaction name="actionNegative"/>
+    <addaction name="actionThreshold"/>
+   </widget>
    <addaction name="menuFiltering"/>
+   <addaction name="menuOperasi_titik"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOperasi_Pencerahan">
@@ -269,6 +279,26 @@
   <action name="action">
    <property name="text">
     <string>.</string>
+   </property>
+  </action>
+  <action name="actionBrightness">
+   <property name="text">
+    <string>Brightness</string>
+   </property>
+  </action>
+  <action name="actionContrast">
+   <property name="text">
+    <string>Contrast</string>
+   </property>
+  </action>
+  <action name="actionNegative">
+   <property name="text">
+    <string>Negative</string>
+   </property>
+  </action>
+  <action name="actionThreshold">
+   <property name="text">
+    <string>Threshold</string>
    </property>
   </action>
  </widget>
