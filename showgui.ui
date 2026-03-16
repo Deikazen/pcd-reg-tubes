@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>20</y>
+      <y>70</y>
       <width>341</width>
-      <height>261</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>350</y>
+      <y>390</y>
       <width>121</width>
       <height>51</height>
      </rect>
@@ -47,9 +47,9 @@
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>20</y>
+      <y>70</y>
       <width>341</width>
-      <height>261</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -59,9 +59,71 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="saveOriginalButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>390</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save Pixel Asli</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveProcessedButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>390</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save Pixel Hasil</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>20</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Nirmala Text</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="text">
+     <string>Aplikasi Edit gambar</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>loadButton</zorder>
    <zorder>imgLabel</zorder>
    <zorder>hasilLabel</zorder>
+   <zorder>saveOriginalButton</zorder>
+   <zorder>saveProcessedButton</zorder>
+   <zorder>label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

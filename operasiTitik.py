@@ -1,6 +1,7 @@
 import sys
 import cv2
 import numpy as np
+import pandas as pd
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
@@ -14,6 +15,8 @@ class ShowImage(QMainWindow):
         super(ShowImage, self).__init__()
         loadUi('showgui.ui', self)
 
+        self.setStyleSheet("background-color: lightgray;")
+
         self.image = None
         self.processed_image = None
 
@@ -21,7 +24,11 @@ class ShowImage(QMainWindow):
         self.actionMedian.triggered.connect(self.median)
         self.loadButton.clicked.connect(self.loadClicked)
 
-        # Operasi Titik
+        # hubungkan tombol untuk menyimpan gambar
+        self.saveOriginalButton.clicked.connect(self.saveOriginalPixels)
+        self.saveProcessedButton.clicked.connect(self.saveProcessedPixels)
+
+         # Operasi Titik
         self.actionBrightness.triggered.connect(self.brightness)
         self.actionContrast.triggered.connect(self.contrast)
         self.actionNegative.triggered.connect(self.negative)
@@ -91,26 +98,29 @@ class ShowImage(QMainWindow):
         self.processed_image = img_out
         self.displayImage(self.processed_image, self.hasilLabel)
 
+    # brightness
     def brightness(self):
         if self.image is None:
             return
 
+        # Konversi citra ke grayscale
         img = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
 
+        # Ambil dimensi gambar , h = tinggi, w = lebar
         h, w = img.shape
-        img_out = img.copy()
+        img_out = img.copy() # Copy image sebagai kanvas output
 
         for i in range(h):
-            for j in range(w):
-                pixel = img[i, j] + 50
+            for j in range(w): # membaca semua piksel gambar.
+                pixel = img[i, j] + 50 # Setiap piksel ditambah 50 intensitas.  
                 if pixel > 255:
-                    pixel = 255
+                    pixel = 255 # kalo lebih dari 255 maka ttp 255
                 img_out[i, j] = pixel
 
         self.processed_image = img_out
         self.displayImage(self.processed_image, self.hasilLabel)
 
-
+    #contrast Memperbesar perbedaan antara piksel terang dan gelap.
     def contrast(self):
         if self.image is None:
             return
@@ -122,7 +132,7 @@ class ShowImage(QMainWindow):
 
         for i in range(h):
             for j in range(w):
-                pixel = img[i, j] * 1.5
+                pixel = img[i, j] * 1.5 # Setiap piksel dikalikan dengan faktor kontras 1.5
                 if pixel > 255:
                     pixel = 255
                 img_out[i, j] = pixel
@@ -130,7 +140,7 @@ class ShowImage(QMainWindow):
         self.processed_image = img_out
         self.displayImage(self.processed_image, self.hasilLabel)
 
-
+    #negative Hitam menjadi putih, putih menjadi hitam.
     def negative(self):
         if self.image is None:
             return
@@ -142,12 +152,12 @@ class ShowImage(QMainWindow):
 
         for i in range(h):
             for j in range(w):
-                img_out[i, j] = 255 - img[i, j]
+                img_out[i, j] = 255 - img[i, j] # Setiap piksel digantikan dengan nilai negatifnya (255 - nilai piksel asli)
 
         self.processed_image = img_out
         self.displayImage(self.processed_image, self.hasilLabel)
 
-
+    #threshold Mengubah citra grayscale menjadi citra biner (hitam putih).
     def threshold(self):
         if self.image is None:
             return
@@ -169,6 +179,42 @@ class ShowImage(QMainWindow):
         self.processed_image = img_out
         self.displayImage(self.processed_image, self.hasilLabel)
 
+    # SIMPAN PIXEL CITRA ASLI
+    def saveOriginalPixels(self):
+
+        if self.image is None:
+            print("Belum ada citra asli")
+            return
+
+        img_gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+
+        # simpan TXT
+        np.savetxt("piksel_citra_asli.txt", img_gray, fmt='%d')
+
+        # simpan Excel
+        df = pd.DataFrame(img_gray)
+        df.to_excel("piksel_citra_asli.xlsx", index=False)
+
+        print("Piksel citra asli berhasil disimpan")
+
+
+    # SIMPAN PIXEL CITRA HASIL
+    def saveProcessedPixels(self):
+
+        if self.processed_image is None:
+            print("Belum ada citra hasil")
+            return
+
+        # simpan TXT
+        np.savetxt("piksel_citra_hasil.txt", self.processed_image, fmt='%d')
+
+        # simpan Excel
+        df = pd.DataFrame(self.processed_image)
+        df.to_excel("piksel_citra_hasil.xlsx", index=False)
+
+        print("Piksel citra hasil berhasil disimpan")
+
+    # Fungsi untuk menampilkan gambar di QLabel
     def displayImage(self, img_array, target_label):
         if img_array is None:
             return
