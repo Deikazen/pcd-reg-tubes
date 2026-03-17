@@ -136,9 +136,12 @@
    </property>
    <widget class="QMenu" name="menuFiltering">
     <property name="title">
-     <string>Median</string>
+     <string>Operasi Spasial</string>
     </property>
     <addaction name="actionMedian"/>
+    <addaction name="actionmean1_2"/>
+    <addaction name="actionmean2_2"/>
+    <addaction name="actiongaus"/>
    </widget>
    <widget class="QMenu" name="menuOperasi_titik">
     <property name="title">
@@ -361,6 +364,21 @@
   <action name="actionThreshold">
    <property name="text">
     <string>Threshold</string>
+   </property>
+  </action>
+  <action name="actionmean1_2">
+   <property name="text">
+    <string>mean1</string>
+   </property>
+  </action>
+  <action name="actionmean2_2">
+   <property name="text">
+    <string>mean2</string>
+   </property>
+  </action>
+  <action name="actiongaus">
+   <property name="text">
+    <string>gaus</string>
    </property>
   </action>
  </widget>
